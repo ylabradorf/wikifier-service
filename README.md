@@ -1,12 +1,16 @@
-This is a rest client for Illinois Wikifier (https://cogcomp.cs.illinois.edu/page/software_view/Wikifier). I implemented methods to use some Wikifier functionalities through a Web Service.
+# Rest Service for Illinois Wikifier
+This is a Rest Service for [Illinois Wikifier](https://cogcomp.cs.illinois.edu/page/software_view/Wikifier). The REST service has some endpoints to use Wikifier functionalities.
 
 All of the REST service endpoints has as input a JSON with the following structure:
+```sh
 {
 	"text": "This is the text"
 }
+```
 
 Endpoints definition:
-* POST - wikifierService/entities: return an array of Wiki Entities given a text. The result is a Json with the following structure:
+- POST - wikifierService/entities: return an array of Wiki Entities given a text. The result is a Json with the following structure:
+```sh
   "wikifierEntities" : [
     {
       "entitySurfaceForm" : "Word or phrase",
@@ -30,9 +34,11 @@ Endpoints definition:
       ]
     }, .....
    }
+```
 
-* POST - wikifierService/entitiesShort: return an array of Wiki Entities given a text, without candidates. The result is a Json with the following structure:
-  "wikifierEntities" : [
+- POST - wikifierService/shortEntities: return an array of Wiki Entities given a text, without candidates. The result is a Json with the following structure:
+```sh
+"wikifierEntities" : [
     {
       "entitySurfaceForm" : "Word or phrase",
       "entityTextStart" : int,
@@ -49,7 +55,6 @@ Endpoints definition:
       "disambiguationCandidates": null
     }, .....
    }
+```
 
-This project uses a wikifier-3.0-jar-with-dependencies.jar library, which you can find it in the Wikifier2013 project, folder dist (https://cogcomp.cs.illinois.edu/page/download_view/Wikifier).
-
-
+This project uses a [wikifier-3.0-jar-with-dependencies.jar](https://cogcomp.cs.illinois.edu/page/download_view/Wikifier) library, which you can find it in the Wikifier2013 project, folder dist.
