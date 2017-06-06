@@ -10,13 +10,12 @@ import org.http4s.HttpService
 import org.http4s.circe.jsonOf
 import org.http4s.dsl.{->, /, Ok, POST, Root}
 import prj.yess.wikifier.rest.model.{Candidate, TopDisambiguation, WikifierEntities, WikifierEntity}
-
 import io.circe.syntax._
 import io.circe.generic.auto._
-
 import _root_.io.circe.Json
-import scala.collection.JavaConverters._
+import gurobi.GRBEnv
 
+import scala.collection.JavaConverters._
 import org.http4s.MediaType._
 import org.http4s.dsl._
 import org.http4s.headers._
@@ -84,6 +83,7 @@ object WikifiedService {
     problem.components.asScala.foreach(entity =>
       if (entity.topCandidate != null) entities.addEntity(createShortEntity(entity)))
 
+    println(entities.asJson)
     entities.asJson
   }
 
@@ -109,7 +109,7 @@ object WikifiedService {
       entity.topCandidate.getTid(), entity.topCandidate.rankerScore, getTitleCategories(entity.topCandidate.titleName))
 
   def getTitleCategories(title: String) =
-    GlobalParameters.getCategories(title).mkString("\t")
+    GlobalParameters.getCategories(title).mkString("-")
 
   def getCandidate(c: WikiCandidate) =
     new Candidate(StringEscapeUtils.escapeXml(c.titleName), c.getTid(), c.rankerScore)
